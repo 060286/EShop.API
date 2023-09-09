@@ -1,18 +1,17 @@
 ﻿using EShop.API.Dto;
 using EShop.API.Services.v1.Interface;
 
-namespace EShop.API.Services.v1
+namespace EShop.API.Services.v1;
+
+public class HomePageService : IHomePageService
 {
-    public class HomePageService : IHomePageService
+    public GetProductDetailResponseDto GetProductDetail(Guid productId)
     {
-        public GetProductDetailResponseDto GetProductDetail(Guid productId)
+        return new GetProductDetailResponseDto
         {
-            return new GetProductDetailResponseDto
-            {
-                Id = productId,
-                Name = "This is a product's name",
-                Stock = 100
-            };
-        }
+            Id = productId,
+            Name = "This is a product's name",
+            Stock = 100
+        };
     }
 }

@@ -1,7 +1,6 @@
 ﻿using EShop.API.Dto;
 using EShop.API.Services.v1.Interface;
 using FastEndpoints;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace EShop.API.Endpoints;
@@ -18,7 +17,9 @@ public class GetProductDetailEndpoint : Endpoint<GetProductDetailRequestDto,
 
     public override void Configure()
     {
+        // Named endpoint 
         Post("product-detail");
+
         AllowAnonymous();
 
         // Will only allow 10 requests from each unique client within a 60 second window. 

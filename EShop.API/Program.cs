@@ -10,9 +10,12 @@ namespace EShop.API
         {
             #region Add services to the container.
             var builder = WebApplication.CreateBuilder(args);
+
+            var configuration = builder.Configuration;
             builder.Services.AddRegisterProductServiceDI();
             builder.Services.AddCustomFastEndpoint();
             builder.Services.AddAuthorization();
+            builder.Services.AddCustomSQLServerConnection(configuration);
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddCustomSwagger();
             #endregion
