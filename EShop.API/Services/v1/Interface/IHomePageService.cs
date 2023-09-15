@@ -7,4 +7,6 @@ public interface IHomePageService
     GetProductDetailResponseDto GetProductDetail(Guid productId);
 
     Task CreateProduct(CreateProductRequestDto requestDto);
+
+    Task UpdateStock(UpdateStockRequestDto requestDto);
 }

@@ -38,9 +38,12 @@ namespace EShop.API.GenericRepository
             _eShopDbContext.Update(entity);
         }
 
-        public async Task UpdateAsync(IList<TEntity> entities)
+        public async Task UpdateAsync(TEntity entity)
         {
-            await _eShopDbContext.BulkUpdateAsync(entities);
+            await _eShopDbContext.BulkUpdateAsync(new List<TEntity>
+            {
+                entity
+            });
         }
 
         public async Task DeleteAsync(IList<TEntity> entities)

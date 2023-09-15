@@ -53,4 +53,20 @@ public class HomePageService : IHomePageService
 
         _uow.Completed();
     }
+
+    public async Task UpdateStock(UpdateStockRequestDto requestDto)
+    {
+        var product = _productRepository.Get(requestDto.ProductId);
+
+        if (product == null)
+        {
+            throw new NotFoundException("Product is no allow null");
+        }
+
+        product.Stock = requestDto.Stock;
+
+        await _productRepository.UpdateAsync(product);
+
+        _uow.Completed();
+    }
 }

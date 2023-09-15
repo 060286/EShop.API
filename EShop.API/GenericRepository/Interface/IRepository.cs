@@ -12,7 +12,7 @@
 
         void Delete(TEntity entity);
 
-        Task UpdateAsync(IList<TEntity> entities);
+        Task UpdateAsync(TEntity entity);
 
         Task DeleteAsync(IList<TEntity> entities);
 
