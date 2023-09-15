@@ -1,7 +1,10 @@
 ﻿using EShop.API.Constant;
 using EShop.API.Context;
+using EShop.API.GenericRepository;
+using EShop.API.GenericRepository.Interface;
 using EShop.API.Services.v1;
 using EShop.API.Services.v1.Interface;
+using EShop.API.Uow;
 using FastEndpoints;
 using Microsoft.OpenApi.Models;
 
@@ -44,5 +47,20 @@ public static class DependencyInjection
                 },
             });
         });
+    }
+
+    public static void AddCustomUOW(this IServiceCollection services)
+    {
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+    }
+
+    public static void AddCustomRepositoryPattern(this IServiceCollection services)
+    {
+        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+    }
+
+    public static void AddCustomBusinessLogic(this IServiceCollection services)
+    {
+        services.AddScoped<IHomePageService, HomePageService>();
     }
 }

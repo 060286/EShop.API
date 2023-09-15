@@ -16,6 +16,9 @@ namespace EShop.API
             builder.Services.AddCustomFastEndpoint();
             builder.Services.AddAuthorization();
             builder.Services.AddCustomSQLServerConnection(configuration);
+            builder.Services.AddCustomUOW();
+            builder.Services.AddCustomRepositoryPattern();
+            builder.Services.AddCustomBusinessLogic();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddCustomSwagger();
             #endregion
