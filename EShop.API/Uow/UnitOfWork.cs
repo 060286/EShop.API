@@ -52,45 +52,12 @@ namespace EShop.API.Uow
 
         public int SaveChanges()
         {
-            BeforeSaveChanges();
-
             return _eShopDbContext.SaveChanges();
         }
 
         public async Task<int> SaveChangesAsync()
         {
-            BeforeSaveChanges();
-
             return await _eShopDbContext.SaveChangesAsync();
-        }
-
-        private void BeforeSaveChanges()
-        {
-            var entityEntries = _eShopDbContext.ChangeTracker.Entries();
-
-            foreach (var entry in entityEntries)
-            {
-                if (entry.Entity is ICreatable creatableEntity &&
-                    entry.State == EntityState.Added)
-                {
-                    creatableEntity.CreatedBy = "tamle.dev";
-                    creatableEntity.CreatedAt = DateTime.Now;
-                }
-
-                if (entry.Entity is IEditable editableEntity &&
-                    entry.State == EntityState.Modified)
-                {
-                    editableEntity.EditedAt = DateTime.Now;
-                    editableEntity.EditedBy = "tamle.dev";
-                }
-
-                if (entry.Entity is IRemovable removableEntity &&
-                    entry.State == EntityState.Deleted)
-                {
-                    removableEntity.RemovedBy = "tamle.dev";
-                    removableEntity.RemovedAt = DateTime.Now;
-                }
-            }
         }
     }
 }

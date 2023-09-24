@@ -1,5 +1,6 @@
 
 using EShop.API.DI;
+using EShop.API.MiddleWares;
 using FastEndpoints;
 
 namespace EShop.API
@@ -30,6 +31,7 @@ namespace EShop.API
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.UseFastEndpoints();
+            app.UseCustomResponseWrapperMiddleware();
             #endregion
 
             app.Run();

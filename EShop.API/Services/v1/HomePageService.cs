@@ -1,7 +1,9 @@
-﻿using EShop.API.Dto;
+﻿using EShop.API.Constant;
+using EShop.API.Dto;
 using EShop.API.Entities;
 using EShop.API.Exceptions;
 using EShop.API.GenericRepository.Interface;
+using EShop.API.Guard;
 using EShop.API.Services.v1.Interface;
 using EShop.API.Uow;
 
@@ -24,14 +26,13 @@ public class HomePageService : IHomePageService
 
     public GetProductDetailResponseDto GetProductDetail(Guid productId)
     {
-        var temp = _productRepository.GetAll()
-            .Where(x => x.Name.Equals("Atlas: The Story of Pa Salt"));
+        var product = _productRepository.Get(productId);
 
         return new GetProductDetailResponseDto
         {
-            Id = productId,
-            Name = "This is a product's name",
-            Stock = 100
+            Id = product.Id,
+            Name = product.Name,
+            Stock = product.Stock
         };
     }
 
@@ -54,14 +55,18 @@ public class HomePageService : IHomePageService
         _uow.Completed();
     }
 
+
+    /// <summary>
+    /// This function use for update stock.
+    /// </summary>
+    /// <param name="requestDto"></param>
+    /// <returns></returns>
+    /// <exception cref="NotFoundException"></exception>
     public async Task UpdateStock(UpdateStockRequestDto requestDto)
     {
         var product = _productRepository.Get(requestDto.ProductId);
 
-        if (product == null)
-        {
-            throw new NotFoundException("Product is no allow null");
-        }
+        MyGuard.ThrowIfNull<NotFoundException>(product, string.Format(ExceptionsConstant.NotFoundException, typeof(Product)));
 
         product.Stock = requestDto.Stock;
 
